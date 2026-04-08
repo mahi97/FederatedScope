@@ -1,0 +1,70 @@
+use_gpu: True
+device: 0
+eval_device: 0
+early_stop:
+  patience: 0
+fedprox:
+  use: True
+  mu: 0.5
+federate:
+  method: fedavg
+  freeze_A: False
+  mode: standalone
+  client_num: 3
+  total_round_num: 1000
+  save_to: "rebuttal_qwen25_3b_factor_fedprox_new.ckpt"
+  share_local_model: True
+  online_aggr: False
+  make_global_eval: True
+data:
+  type: "gsm8k@llm"
+  splitter: "iid"
+llm:
+  tok_len: 256
+  chat:
+    max_len: 128
+  gsm8k:
+    train_size: -1
+    val_size: 128
+    test_size: -1
+    eval_max_samples: 128
+    max_new_tokens: 96
+    n_shot: 0
+    cot: False
+    sample_seed: 42
+  adapter:
+    use: True
+    args: [{ 'adapter_package': 'peft', 'adapter_method': 'lora', 'r': 8, 'lora_alpha': 16, 'lora_dropout': 0.05 }]
+dataloader:
+  batch_size: 1
+  num_workers: 0
+  pin_memory: True
+model:
+  type: "Qwen/Qwen2.5-3B-Instruct@huggingface_llm"
+train:
+  local_update_steps: 10
+  batch_or_epoch: batch
+  optimizer:
+    lr: 0.005
+  is_enable_half: True
+criterion:
+  type: CrossEntropyLoss
+trainer:
+  type: llmtrainer
+eval:
+  freq: 100
+  split: ["val"]
+  metrics: ["acc"]
+  best_res_update_round_wise_key: val_acc
+  count_flops: False
+  llm:
+    use_generation: True
+    reuse_train_model: False
+    compile_model: False
+    show_progress: False
+wandb:
+  use: True
+  name_user: "mahi97"
+  name_project: "persia-llm-rebuttal"
+  online_track: True
+  client_train_info: True

@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "/home/mahi/app/APRILS/federatedscope/main.py",
+            "console": "integratedTerminal",
+            "args": ["--cfg", "/home/mahi/app/APRILS/federatedscope/llm/yamls/fedsa-lora.yaml"]
+        }
+    ]
+}

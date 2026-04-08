@@ -1,0 +1,141 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "federatedscope"
+version = "0.3.0"
+description = "Federated learning package"
+readme = "README.md"
+requires-python = ">=3.10,<3.11"
+license = { text = "Apache License 2.0" }
+authors = [
+  { name = "Alibaba Damo Academy", email = "jones.wz@alibaba-inc.com" },
+]
+keywords = ["deep-learning", "federated-learning", "benchmark"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+]
+dependencies = [
+  "numpy==1.24.1",
+  "scikit-learn==1.0.2",
+  "scipy==1.8",
+  "pandas",
+  "grpcio>=1.45.0",
+  "grpcio-tools",
+  "pyyaml>=5.1",
+  "fvcore",
+  "iopath",
+  "wandb",
+  "tensorboard",
+  "tensorboardX",
+  "pympler",
+  "protobuf==3.19.4",
+  "matplotlib",
+  "dill",
+  "torch",
+  "torchvision",
+]
+
+[project.urls]
+Homepage = "https://github.com/alibaba/FederatedScope"
+Download = "https://github.com/alibaba/FederatedScope/archive/0.3.0.tar.gz"
+
+[project.optional-dependencies]
+test = [
+  "pytest",
+  "pytest-cov",
+]
+dev = [
+  "pytest",
+  "pytest-cov",
+  "pre-commit",
+  "networkx",
+  "matplotlib",
+]
+org = [
+  "paramiko==2.11.0",
+  "celery[redis]",
+  "cmd2",
+]
+app = [
+  "torch-geometric==2.0.4",
+  "nltk",
+  "transformers==4.16.2",
+  "tokenizers==0.10.3",
+  "datasets",
+  "sentencepiece",
+  "textgrid",
+  "typeguard",
+  "openml==0.12.2",
+]
+llm = [
+  "tokenizers==0.19.1",
+  "transformers==4.42.3",
+  "accelerate==0.33.0",
+  "peft==0.12.0",
+  "sentencepiece==0.1.99",
+  "datasets==2.20.0",
+  "evaluate",
+]
+hpo = [
+  "configspace==0.5.0",
+  "hpbandster==0.7.4",
+  "smac==1.3.3",
+  "optuna==2.10.0",
+]
+htl = [
+  "learn2learn",
+]
+full = [
+  "paramiko==2.11.0",
+  "celery[redis]",
+  "cmd2",
+  "configspace==0.5.0",
+  "hpbandster==0.7.4",
+  "smac==1.3.3",
+  "optuna==2.10.0",
+  "learn2learn",
+  "torch-geometric==2.0.4",
+  "nltk",
+  "transformers==4.16.2",
+  "tokenizers==0.10.3",
+  "datasets",
+  "sentencepiece",
+  "textgrid",
+  "typeguard",
+  "openml==0.12.2",
+]
+
+[tool.setuptools.packages.find]
+include = ["federatedscope*"]
+
+[tool.uv]
+package = true
+conflicts = [
+  [
+    { extra = "llm" },
+    { extra = "app" },
+  ],
+  [
+    { extra = "llm" },
+    { extra = "full" },
+  ],
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu126"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cu126", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+torchvision = [
+  { index = "pytorch-cu126", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]

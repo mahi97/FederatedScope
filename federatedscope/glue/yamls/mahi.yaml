@@ -1,0 +1,55 @@
+use_gpu: True
+use_gram: True
+mapa_rank: 10000
+device: -1
+early_stop:
+  patience: 0
+federate:
+  freeze_A: false
+  mode: standalone
+  client_num: 3
+  total_round_num: 300
+  save_to: "fedsa-lora_mnli-m2.ckpt"
+  share_local_model: true
+  online_aggr: false
+personalization:
+  local_param: ['classifier', 'lora_B']
+data:
+  type: 'sst2@glue'
+  matched: true
+  splitter: 'iid'
+#  splits: [0.8, 0.1, 0.1]
+  splitter_args: ['alpha': 0.5]
+llm:
+  tok_len: 128
+  adapter:
+    use: false
+    args: [{'adapter_package': 'peft', 'adapter_method': 'lora', 'r': 8, 'lora_alpha': 16,
+        'lora_dropout': 0.05}]
+dataloader:
+  batch_size: 128
+model:
+  type: 'FacebookAI/roberta-large@huggingface_llm'
+train:
+  local_update_steps: 10
+  batch_or_epoch: batch
+  optimizer:
+    lr: 0.03 # 8e-2 = 0.08
+  is_enable_half: true
+criterion:
+  type: CrossEntropyLoss
+trainer:
+  type: mapatrainer
+eval:
+  freq: 1
+  metrics: ['accuracy']
+  count_flops: false
+  best_res_update_round_wise_key: 'val_accuracy'
+wandb:
+  use: true
+  name_user: 'mahi97'
+  name_project: 'persia-glue'
+  online_track: True
+  client_train_info: True
+grad:
+  grad_clip: 1.0

@@ -1,0 +1,67 @@
+use_gpu: True
+use_gram: True
+device: 0
+eval_device: 0
+early_stop:
+  patience: 0
+federate:
+  method: svd
+  freeze_A: False
+  mode: standalone
+  client_num: 3
+  total_round_num: 5
+  save_to: "llm_wallclock_full_rank.ckpt"
+  save_freq: 0
+  share_local_model: True
+  online_aggr: False
+  make_global_eval: False
+aggregator:
+  svd_mode: full_rank
+data:
+  type: "gsm8k@llm"
+  splitter: "iid"
+llm:
+  tok_len: 256
+  chat:
+    max_len: 128
+  gsm8k:
+    train_size: -1
+    val_size: 128
+    test_size: -1
+    eval_max_samples: 128
+    max_new_tokens: 96
+    n_shot: 0
+    cot: False
+    sample_seed: 42
+  adapter:
+    use: True
+    args: [{ 'adapter_package': 'peft', 'adapter_method': 'lora', 'r': 8, 'lora_alpha': 16, 'lora_dropout': 0.05 }]
+dataloader:
+  batch_size: 4
+  num_workers: 0
+  pin_memory: True
+model:
+  type: "Qwen/Qwen2.5-3B-Instruct@huggingface_llm"
+train:
+  local_update_steps: 10
+  batch_or_epoch: batch
+  optimizer:
+    lr: 0.005
+  is_enable_half: True
+criterion:
+  type: CrossEntropyLoss
+trainer:
+  type: llmsvdtrainer
+eval:
+  freq: 1000000
+  split: ["val"]
+  metrics: ["acc"]
+  best_res_update_round_wise_key: val_avg_loss
+  count_flops: False
+  llm:
+    use_generation: False
+    reuse_train_model: False
+    compile_model: False
+    show_progress: False
+wandb:
+  use: False

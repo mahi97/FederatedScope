@@ -1,0 +1,58 @@
+use_gpu: True
+device: 0
+eval_device: 0
+early_stop:
+  patience: 0
+federate:
+  method: svd
+  freeze_A: False
+  mode: standalone
+  client_num: 1
+  total_round_num: 2
+  save_to: "llama_gsm8k_svd_smoke.ckpt"
+  save_freq: 10000
+  share_local_model: True
+  online_aggr: False
+  make_global_eval: True
+data:
+  type: 'gsm8k@llm'
+  splitter: 'iid'
+llm:
+  tok_len: 128
+  chat:
+    max_len: 64
+  gsm8k:
+    train_size: 64
+    val_size: 16
+    test_size: 32
+    eval_max_samples: 16
+    max_new_tokens: 64
+    n_shot: 0
+    cot: False
+  adapter:
+    use: True
+    args: [ { 'adapter_package': 'peft', 'adapter_method': 'lora', 'r': 8, 'lora_alpha': 16, 'lora_dropout': 0.05 } ]
+dataloader:
+  batch_size: 1
+  num_workers: 2
+  pin_memory: True
+model:
+  type: 'meta-llama/Meta-Llama-3-8B@huggingface_llm'
+train:
+  local_update_steps: 2
+  batch_or_epoch: batch
+  optimizer:
+    lr: 0.005
+  is_enable_half: True
+criterion:
+  type: CrossEntropyLoss
+trainer:
+  type: llmsvdtrainer
+eval:
+  freq: 1
+  split: ['val']
+  metrics: ['acc']
+  best_res_update_round_wise_key: val_acc
+  count_flops: False
+wandb:
+  use: False

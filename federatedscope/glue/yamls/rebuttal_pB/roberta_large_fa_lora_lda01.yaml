@@ -1,0 +1,58 @@
+use_gpu: True
+device: 0
+eval_device: 0
+early_stop:
+  patience: 0
+federate:
+  method: fedavg
+  freeze_A: True
+  mode: standalone
+  client_num: 3
+  total_round_num: 200
+  save_to: "roberta_pB_fa_lora_sst2_lda01.ckpt"
+  share_local_model: True
+  online_aggr: False
+  make_global_eval: True
+personalization:
+  local_param: ['classifier', 'lora_B']
+data:
+  root: data/
+  type: "sst2@glue"
+  matched: True
+  splitter: "lda"
+  splitter_args: [{'alpha': 0.1}]
+llm:
+  tok_len: 128
+  adapter:
+    use: True
+    args: [{ 'adapter_package': 'peft', 'adapter_method': 'lora', 'r': 8, 'lora_alpha': 16, 'lora_dropout': 0.05 }]
+dataloader:
+  batch_size: 16
+  num_workers: 0
+  pin_memory: False
+model:
+  type: "FacebookAI/roberta-large@huggingface_llm"
+train:
+  local_update_steps: 40
+  batch_or_epoch: batch
+  optimizer:
+    lr: 0.02
+  is_enable_half: True
+criterion:
+  type: CrossEntropyLoss
+trainer:
+  type: gluetrainer
+eval:
+  freq: 5
+  metrics: ["accuracy"]
+  count_flops: False
+  best_res_update_round_wise_key: "val_accuracy"
+  split: ["val"]
+wandb:
+  use: True
+  name_user: "mahi97"
+  name_project: "persia-glue-rebuttal-pB"
+  online_track: True
+  client_train_info: True
+grad:
+  grad_clip: 1.0

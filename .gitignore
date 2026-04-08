@@ -1,0 +1,16 @@
+/.locks
+.venv/
+exp/
+*/__pycache__/*
+**/__pycache__/**
+federatedscope.egg-info/
+**/__pycache__/
+*/__pycache__/
+models--*
+wandb/*
+figs/*
+*.ckpt
+federatedscope/wandb
+/data/
+*.pkl
+eval_result/*

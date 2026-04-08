@@ -1,0 +1,48 @@
+#!/bin/sh
+#### Requesting job resources
+# PBS -l select=1:ncpus=20:ngpus=2:mpiprocs=10
+
+#### Setting email recipient list
+# PBS -M mahi@dgist.ac.kr
+
+#### mail option(Specifying email notification)
+### a send mail when job is aborted by batch system
+### b send mail when job begins execution
+### e send mail when job ends execution
+### n do not send mail
+#PBS -m abe
+
+#### Specifying queue and/or server
+#PBS -q v100q
+#### P100q for P100 GPU, v100q for V100 GPU, RTX3090q for RTX3090 GPU
+
+#### Marking a job as re-runnable or not
+#PBS -r n
+
+#### Exporting environment variables
+#PBS -V
+
+#### Specifying a job name
+### PBS -N [jobname]
+#PBS -N JSCC01
+
+#### Log files
+#PBS -j oe
+#PBS -o /home/dwseo/scratch/mahi/pbs_logs
+
+
+#### Create Stdout.out File 
+cd $PBS_O_WORKDIR
+date > stdout.out
+cat $PBS_NODEFILE >> stdout.out
+
+NP=`/usr/bin/wc -l $PBS_NODEFILE | awk '{ print $1 }'`
+echo $NP >> stdout.out
+
+source activate aprils
+
+#### mpirun config
+#### CUDA_VISIBLE_DEVICES=0, CUDA_VISIBLE_DEVICES=1
+
+sh mahi_aprils.sh
+
