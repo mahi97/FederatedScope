@@ -9,7 +9,6 @@ federate:
   total_round_num: 100
   share_local_model: False
 data:
-  root: data/
   type: cikmcup
 dataloader:
   type: pyg

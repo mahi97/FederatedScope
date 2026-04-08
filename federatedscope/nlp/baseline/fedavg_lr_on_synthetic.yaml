@@ -8,7 +8,6 @@ federate:
   sample_client_rate: 0.2
   client_num: 300
 data:
-  root: data/
   type: synthetic
   subsample: 1.0
 model:

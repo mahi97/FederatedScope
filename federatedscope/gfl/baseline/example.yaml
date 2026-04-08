@@ -18,7 +18,6 @@ federate:
 # Dataset related options
 data:
   # Root directory where the data stored
-  root: data/
   # Dataset name
   type: cora
   # Use Louvain algorithm to split `Cora`

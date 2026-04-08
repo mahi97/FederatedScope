@@ -14,7 +14,9 @@ METHOD=$3
 SCENARIO=$4
 shift 4
 
-exec "${PYTHON_BIN}" /home/mahi/app/APRILS/scripts/run_glue_wallclock_matrix.py \
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+exec "${PYTHON_BIN}" "${SCRIPT_DIR}/run_glue_wallclock_matrix.py" \
   --gpu "${GPU_ID}" \
   --tasks "${TASK}" \
   --methods "${METHOD}" \

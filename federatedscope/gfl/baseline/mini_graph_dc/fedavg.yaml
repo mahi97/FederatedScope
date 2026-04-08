@@ -9,7 +9,6 @@ federate:
   total_round_num: 400
   share_local_model: False
 data:
-  root: data/
   type: mini-graph-dc
 dataloader:
   type: pyg

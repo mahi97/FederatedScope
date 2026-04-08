@@ -8,7 +8,6 @@ federate:
   make_global_eval: True
   total_round_num: 400
 data:
-  root: data/
   type: dblp_conf
 dataloader:
   type: graphsaint-rw

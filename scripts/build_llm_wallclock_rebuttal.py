@@ -16,7 +16,7 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 
-REPO_ROOT = Path("/home/mahi/app/APRILS")
+REPO_ROOT = Path(__file__).resolve().parent.parent
 WALLCLOCK_DIR = REPO_ROOT / "federatedscope/llm/yamls/wallclock"
 RESULTS_PATH = WALLCLOCK_DIR / "RESULTS.md"
 OUTPUT_PATH = WALLCLOCK_DIR / "WALLCLOCK_REPORT.md"

@@ -7,7 +7,6 @@ federate:
   total_round_num: 100
   sample_client_num: 10
 data:
-  root: data/
   type: subreddit
   subsample: 1.0
 dataloader:

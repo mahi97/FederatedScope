@@ -12,7 +12,7 @@ from federatedscope.core.configs.config import global_cfg
 from federatedscope.glue.model.model_builder import get_llm
 
 
-REPO_ROOT = Path("/home/mahi/app/APRILS")
+REPO_ROOT = Path(__file__).resolve().parent.parent
 CFG_DIR = REPO_ROOT / "federatedscope/glue/yamls/wallclock"
 OUTPUT_PATH = CFG_DIR / "THEORETICAL_COSTS.md"
 

@@ -9,7 +9,6 @@ federate:
   client_num: 18
 data:
   type: hetero_nlp_tasks
-  root: datasets/
   hetero_data_name: ['imdb', 'agnews', 'squad', 'newsqa', 'cnndm', 'msqg']
   num_of_client_for_data: [1, 3, 3, 2, 5, 4]
   num_workers: 0

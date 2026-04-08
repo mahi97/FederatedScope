@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 
-REPO_ROOT = Path("/home/mahi/app/APRILS")
+REPO_ROOT = Path(__file__).resolve().parent.parent
 RESULTS_FILE = REPO_ROOT / "federatedscope/glue/yamls/wallclock/RESULTS2.md"
 OUTDIR_ROOT = REPO_ROOT / "exp/glue_wallclock"
 CKPT_ROOT = REPO_ROOT / "exp/glue_wallclock_ckpts"

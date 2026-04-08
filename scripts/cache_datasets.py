@@ -183,10 +183,13 @@ def cache_evaluation_metrics():
 
 
 def main():
+    _storage = os.environ.get('STORAGE_ROOT', '/drive1/mahi')
     parser = argparse.ArgumentParser(description="Cache datasets, models, and tokenizers")
-    parser.add_argument("--cache_dir", type=str, default="./data", 
+    parser.add_argument("--cache_dir", type=str,
+                        default=os.environ.get('HF_DATASETS_CACHE', os.path.join(_storage, 'data')),
                         help="Directory to cache datasets")
-    parser.add_argument("--model_cache_dir", type=str, default="./models_cache",
+    parser.add_argument("--model_cache_dir", type=str,
+                        default=os.environ.get('HF_HOME', os.path.join(_storage, 'huggingface')),
                         help="Directory to cache models and tokenizers")
     parser.add_argument("--skip_glue", action="store_true",
                         help="Skip GLUE dataset caching")

@@ -116,7 +116,8 @@ def main():
         agg_results = compute_aggregations_per_round(round_data, rank=8)
         all_agg_results[round_num] = agg_results
     errors_per_round = compute_errors_vectorized(all_agg_results)
-    plot_errors(errors_per_round, '/home/mahi/app/APRILS/exp/mahi')
+    output_dir = os.environ.get('APRILS_EXP_DIR', os.environ.get('APRILS_OUTPUT_DIR', 'exp'))
+    plot_errors(errors_per_round, os.path.join(output_dir, 'mahi'))
 
 if __name__ == '__main__':
     main()

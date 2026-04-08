@@ -9,7 +9,6 @@ federate:
   total_round_num: 400
   client_num: 5
 data:
-  root: data/
   type: wn18
   splitter: rel_type
   pre_transform: ['Constant', {'value':1.0, 'cat':False}]

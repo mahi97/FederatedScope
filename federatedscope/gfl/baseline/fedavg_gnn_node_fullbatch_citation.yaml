@@ -9,7 +9,6 @@ federate:
   client_num: 5
   total_round_num: 400
 data:
-  root: data/
   type: cora
   splitter: 'louvain'
 dataloader:

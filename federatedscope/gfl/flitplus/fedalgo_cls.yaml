@@ -7,7 +7,6 @@ federate:
   client_num: 4
   sample_client_num: 3
 data:
-  root: data/
   splitter: scaffold_lda
   transform: ['AddSelfLoops']
   splitter_args: [{'alpha': 0.1}]

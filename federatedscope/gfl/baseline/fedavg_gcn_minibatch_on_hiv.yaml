@@ -9,7 +9,6 @@ federate:
   total_round_num: 400
   client_num: 5
 data:
-  root: data/
   type: hiv
   splitter: scaffold
 dataloader:

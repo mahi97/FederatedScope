@@ -9,7 +9,6 @@ federate:
 train:
   batch_or_epoch: epoch
 data:
-  root: data/
   type: 'cora'
   splitter: 'louvain'
 dataloader:

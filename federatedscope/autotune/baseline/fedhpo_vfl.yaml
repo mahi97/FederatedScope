@@ -17,7 +17,6 @@ train:
     # learning rate for xgb model
     eta: 0.5
 data:
-  root: data/
   type: adult
   splits: [1.0, 0.0]
   args: [{normalization: False, standardization: True}]

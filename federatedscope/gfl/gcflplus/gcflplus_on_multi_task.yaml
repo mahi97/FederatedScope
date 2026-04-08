@@ -5,7 +5,6 @@ federate:
   total_round_num: 100
   method: gcflplus
 data:
-  root: data/
   type: graph_multi_domain_mix
   pre_transform: ['Constant', {'value':1.0, 'cat':False}]
 dataloader:

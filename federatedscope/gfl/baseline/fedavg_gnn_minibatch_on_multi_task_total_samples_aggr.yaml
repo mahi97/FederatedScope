@@ -10,7 +10,6 @@ federate:
   share_local_model: False
   data_weighted_aggr: True
 data:
-  root: data/
   type: graph_multi_domain_mix
   pre_transform: ['Constant', {'value':1.0, 'cat':False}]
 dataloader:

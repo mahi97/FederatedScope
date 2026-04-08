@@ -16,7 +16,6 @@ federate:
 personalization:
   local_param: ['classifier']
 data:
-  root: data/
   type: "sst2@glue"
   matched: True
   splitter: "lda"

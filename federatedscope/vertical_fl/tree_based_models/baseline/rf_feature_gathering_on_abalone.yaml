@@ -11,7 +11,6 @@ model:
   num_of_trees: 10
   max_tree_depth: 4
 data:
-  root: data/
   type: abalone
   splits: [0.8, 0.2]
 dataloader:

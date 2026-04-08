@@ -7,7 +7,6 @@ federate:
   total_round_num: 100
   sample_client_num: 10
 data:
-  root: data/
   type: celeba
   splits: [0.6,0.2,0.2]
   subsample: 0.1

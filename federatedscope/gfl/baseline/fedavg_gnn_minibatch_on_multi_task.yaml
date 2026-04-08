@@ -9,7 +9,6 @@ federate:
   total_round_num: 400
   share_local_model: False
 data:
-  root: data/
   type: graph_multi_domain_mol
   pre_transform: ['Constant', {'value':1.0, 'cat':False}]
 dataloader:

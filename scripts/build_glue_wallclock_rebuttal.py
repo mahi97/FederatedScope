@@ -7,7 +7,7 @@ from statistics import median
 from typing import Dict, Iterable, List, Optional, Sequence, Tuple
 
 
-REPO_ROOT = Path("/home/mahi/app/APRILS")
+REPO_ROOT = Path(__file__).resolve().parent.parent
 WALLCLOCK_DIR = REPO_ROOT / "federatedscope/glue/yamls/wallclock"
 RESULTS_PATH = WALLCLOCK_DIR / "RESULTS.md"
 THEORY_PATH = WALLCLOCK_DIR / "THEORETICAL_COSTS.md"

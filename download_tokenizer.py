@@ -2,13 +2,15 @@
 """
 Quick script to download tokenizer files for FacebookAI/roberta-large.
 Run this when you have internet access.
+Prefer using `bash cache_offline.sh` which downloads everything.
 """
 import os
 
-# Set the cache directory
-cache_dir = '/home/dwseo/scratch/mahi/hf_transformers'
-os.environ['TRANSFORMERS_CACHE'] = cache_dir
-os.environ['HF_HOME'] = cache_dir
+# Resolve cache directory from env (set by .env.online or STORAGE_ROOT)
+storage_root = os.environ.get('STORAGE_ROOT', '/drive1/mahi')
+cache_dir = os.environ.get('HF_HOME', os.path.join(storage_root, 'huggingface'))
+os.environ.setdefault('TRANSFORMERS_CACHE', os.path.join(cache_dir, 'hub'))
+os.environ.setdefault('HF_HOME', cache_dir)
 
 from transformers import AutoTokenizer
 

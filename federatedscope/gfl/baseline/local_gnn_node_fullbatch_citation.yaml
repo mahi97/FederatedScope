@@ -9,7 +9,6 @@ federate:
   total_round_num: 400
   method: 'local'
 data:
-  root: data/
   type: cora
   splitter: 'louvain'
 dataloader:
